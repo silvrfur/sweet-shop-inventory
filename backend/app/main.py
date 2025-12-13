@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 
 from app.common.db import init_db
 from app.auth.routes import auth_bp
+from app.products.routes import products_bp
 
 def create_app():
     app = Flask(__name__)
@@ -19,5 +20,6 @@ def create_app():
     def health():
         return {"status": "ok"}
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
+    app.register_blueprint(products_bp, url_prefix="/api/products")
 
     return app
