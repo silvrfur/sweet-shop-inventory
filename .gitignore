@@ -1,0 +1,52 @@
+# ===============================
+# Python
+# ===============================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+
+# Virtual environments
+venv/
+.env/
+.env.*
+
+# ===============================
+# Flask / Runtime
+# ===============================
+instance/
+.flaskenv
+
+# ===============================
+# MongoDB / Docker
+# ===============================
+data/
+mongo_data/
+
+# ===============================
+# Node / React (frontend)
+# ===============================
+node_modules/
+dist/
+build/
+
+# Vite
+.vite/
+
+# ===============================
+# OS / Editor junk
+# ===============================
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# ===============================
+# Misc
+# ===============================
+*.sqlite3
+coverage/
+htmlcov/
