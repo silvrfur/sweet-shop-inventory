@@ -8,18 +8,17 @@ auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.route("/login", methods=["POST"])
 def login():
-    data = request.json
+    data = request.json or {}
 
-     # minimal validation for green phase
-    if "email" not in data or "password" not in data:
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
         return {"error": "Email and password required"}, 400
 
-    user = AuthService.authenticate(
-        data["email"],
-        data["password"]
-    )
+    user = AuthService.authenticate(email, password)
 
-    if not user:
+    if user is None:
         return {"error": "Invalid credentials"}, 401
 
     token = create_access_token(
@@ -31,6 +30,7 @@ def login():
         "access_token": token,
         "user": serialize_user(user)
     }
+
 @auth_bp.route("/register", methods=["POST"])
 def register():
     data = request.json
