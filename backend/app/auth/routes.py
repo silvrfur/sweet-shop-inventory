@@ -24,7 +24,7 @@ def login():
     )
 
     return {
-        "token": token,
+        "access_token": token,
         "user": serialize_user(user)
     }
 @auth_bp.route("/register", methods=["POST"])
