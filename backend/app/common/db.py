@@ -5,8 +5,14 @@ _db = None
 
 def init_db(app):
     global _client, _db
-    _client = MongoClient("mongodb://localhost:27017")
-    _db = _client["shreeram_mithai"]
+
+    mongo_uri = app.config.get("MONGO_URI")
+
+    if not mongo_uri:
+        raise RuntimeError("MONGO_URI is not set in application config")
+
+    _client = MongoClient(mongo_uri)
+    _db = _client.get_database()  # uses DB name from URI
 
 def get_db():
     if _db is None:

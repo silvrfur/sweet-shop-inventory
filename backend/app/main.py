@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+load_dotenv()
 import os
 from flask import Flask
 from flask_cors import CORS
@@ -12,17 +14,17 @@ def create_app(testing=False):
     app = Flask(__name__)
 
     app.config["JWT_SECRET_KEY"] = os.getenv(
-        "JWT_SECRET_KEY", "super-secret-key"
+        "JWT_SECRET_KEY"
     )
 
     if testing:
         app.config["TESTING"] = True
         app.config["MONGO_URI"] = os.getenv(
-            "MONGO_URI", "mongodb://localhost:27017/sweetshop_test"
+            "MONGO_URI"
         )
     else:
         app.config["MONGO_URI"] = os.getenv(
-            "MONGO_URI", "mongodb://localhost:27017/sweetshop"
+            "MONGO_URI"
         )
 
     CORS(app)
