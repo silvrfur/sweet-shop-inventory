@@ -10,6 +10,10 @@ auth_bp = Blueprint("auth", __name__)
 def login():
     data = request.json
 
+     # minimal validation for green phase
+    if "email" not in data or "password" not in data:
+        return {"error": "Email and password required"}, 400
+
     user = AuthService.authenticate(
         data["email"],
         data["password"]
