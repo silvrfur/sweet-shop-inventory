@@ -1,7 +1,8 @@
 from dotenv import load_dotenv
 load_dotenv()
+
 import os
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
@@ -13,23 +14,25 @@ from app.products.routes import products_bp
 def create_app(testing=False):
     app = Flask(__name__)
 
-    app.config["JWT_SECRET_KEY"] = os.getenv(
-        "JWT_SECRET_KEY"
-    )
+    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+    app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 
     if testing:
         app.config["TESTING"] = True
-        app.config["MONGO_URI"] = os.getenv(
-            "MONGO_URI"
-        )
-    else:
-        app.config["MONGO_URI"] = os.getenv(
-            "MONGO_URI"
-        )
 
-    CORS(app)
+    CORS(
+        app,
+        resources={r"/api/*": {"origins": "*"}},
+        supports_credentials=True
+    )
+
     JWTManager(app)
     init_db(app)
+
+    @app.before_request
+    def handle_options():
+        if request.method == "OPTIONS":
+            return "", 204
 
     @app.route("/health")
     def health():

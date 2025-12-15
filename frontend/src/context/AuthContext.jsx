@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import api from "@/lib/api";
+import { api } from "@/api/client";
 
 const AuthContext = createContext();
 
@@ -19,20 +19,14 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = async (email, password) => {
-    const res = await api.post("/auth/login", { email, password });
+    const res = await api.post("/api/auth/login", { email, password });
     const token = res.data.access_token;
     localStorage.setItem("access_token", token);
-    try {
-      setUser(jwtDecode(token));
-    } catch (error) {
-      console.error("Failed to decode token:", error);
-      localStorage.removeItem("access_token");
-      throw error;
-    }
+    setUser(jwtDecode(token));
   };
 
   const register = async (payload) => {
-    await api.post("/auth/register", payload);
+    await api.post("/api/auth/register", payload);
   };
 
   const logout = () => {
