@@ -1,5 +1,11 @@
 # Sweet Shop Management System
 
+## Short Description
+
+A full-stack Sweet Shop Management System that enables users to browse and purchase traditional Indian sweets while allowing administrators to manage inventory through secure, role-based access controls.
+
+---
+
 ## 1. Project Overview
 
 The Sweet Shop Management System is a full-stack web application designed to manage the sale and inventory of traditional sweets. The system supports role-based access, allowing customers to browse and purchase sweets while administrators manage inventory through secure controls.
@@ -14,11 +20,24 @@ The project demonstrates:
 The application consists of:
 - A Single Page Application (SPA) frontend built with React
 - A Flask-based backend API
-- MongoDB for data persistence, managed via Docker
+- MongoDB for data persistence
 
 ---
 
-## 2. Features
+## 2. Live Deployment Links
+
+- **Backend API (Render)**  
+  https://sweet-shop-inventory-backend.onrender.com/health
+
+- **Frontend Application (Vercel)**  
+  https://sweet-shop-inventory.vercel.app/
+
+- **Database**  
+  MongoDB Atlas (Cloud-hosted)
+
+---
+
+## 3. Features
 
 ### User Features
 - User registration and login
@@ -43,7 +62,7 @@ The application consists of:
 
 ---
 
-## 3. Technology Stack
+## 4. Technology Stack
 
 ### Frontend
 - React (Vite)
@@ -54,13 +73,18 @@ The application consists of:
 
 ### Backend
 - Python (Flask)
-- MongoDB
 - Flask-JWT-Extended
+- MongoDB (Atlas)
 - Docker and Docker Compose
+
+### Deployment
+- Backend: Render
+- Frontend: Vercel
+- Database: MongoDB Atlas
 
 ---
 
-## 4. Project Structure
+## 5. Project Structure
 
 ```
 
@@ -92,30 +116,28 @@ SweetShopManagementSystem/
 
 ---
 
-## 5. Setup and Run Instructions
+## 6. Setup and Run Instructions
 
-### 5.1 Prerequisites
+### 6.1 Prerequisites
 
 - Python 3.10 or higher
-- Node.js (v18 or higher)
+- Node.js v18 or higher
 - Docker Desktop
 - npm
 
 ---
 
-### 5.2 Start Database Containers (Mandatory First Step)
+### 6.2 Start Database Containers (Mandatory First Step)
 
 The project uses MongoDB and Mongo Express via Docker.
 
 #### If containers are NOT created yet
 
-From the **project root directory**:
+From the project root directory:
 
 ```bash
 docker-compose up -d
 ````
-
-This will create and start the required containers.
 
 #### If containers are ALREADY created
 
@@ -140,7 +162,7 @@ docker ps
 
 ---
 
-### 5.3 Backend Setup
+### 6.3 Backend Setup (Local)
 
 1. Navigate to the backend directory:
 
@@ -163,13 +185,20 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-4. Start the backend server:
+4. Create a `.env` file:
+
+```env
+JWT_SECRET_KEY=your-secret-key
+MONGO_URI=your-mongodb-atlas-connection-string
+```
+
+5. Start the backend server:
 
 ```bash
 python -m run
 ```
 
-The backend API will run at:
+Backend runs at:
 
 ```
 http://127.0.0.1:5000
@@ -177,7 +206,7 @@ http://127.0.0.1:5000
 
 ---
 
-### 5.4 Frontend Setup
+### 6.4 Frontend Setup (Local)
 
 1. Navigate to the frontend directory:
 
@@ -191,13 +220,19 @@ cd frontend
 npm install
 ```
 
-3. Start the frontend development server:
+3. Create a `.env` file:
+
+```env
+VITE_API_URL=http://127.0.0.1:5000
+```
+
+4. Start the frontend:
 
 ```bash
 npm run dev
 ```
 
-The frontend application will run at:
+Frontend runs at:
 
 ```
 http://localhost:5173
@@ -205,22 +240,20 @@ http://localhost:5173
 
 ---
 
-## 6. Screenshots
+## 7. Screenshots
 
-Screenshots of the final application are already added in the `screenshots/` folder.
-
-These include:
+Screenshots of the final application are already added in the `screenshots/` folder, including:
 
 * Login page
 * Registration page
-* User dashboard (sweets listing)
+* User dashboard
 * Purchase flow with disabled button for out-of-stock items
 * Admin inventory dashboard
-* Sweet management interface (add, restock, delete)
+* Sweet management interface
 
 ---
 
-## 7. My AI Usage
+## 8. My AI Usage
 
 This project was developed with assistance from AI tools. All architectural decisions, logic validation, and final implementation choices were reviewed and understood by the developer.
 
@@ -229,34 +262,29 @@ This project was developed with assistance from AI tools. All architectural deci
 * **Vercel v0**
   Used for UI design recommendations.
 
-* **ChatGPT 5.2**
-  Used to debug code.
-
-* **Cursor (GPT-4.1)**
-  Used to debug React components.
-
-AI tools were used as development assistants and not as autonomous code generators.
+* **ChatGPT 5.2 & Cursor (GPT-4.1)**
+  Used to debug backend and frontend code.
 
 ---
 
-## 8. Design Considerations
+## 9. Design Considerations
 
 * A single unified UI is used for both users and admins, with additional controls visible only to admins.
 * Frontend role checks enhance user experience, while backend authorization remains the source of truth.
-* The architecture is modular, scalable, and easy to extend.
+* The architecture is modular, scalable, and production-ready.
 
 ---
 
-## 9. Future Enhancements
+## 10. Future Enhancements
 
 * Order history for users
 * Low-stock alerts
-* Image upload for sweets
+* Image uploads for sweets
 * Advanced filtering and sorting
-* Production deployment
+* Analytics dashboard
 
 ---
 
-## 10. Conclusion
+## 11. Conclusion
 
-The Sweet Shop Management System demonstrates a complete full-stack solution with secure authentication, role-based access control, and a modern, responsive frontend. The project reflects real-world system design principles and best practices in modern web development.
+The Sweet Shop Management System demonstrates a complete full-stack solution with secure authentication, role-based access control, and a modern, responsive frontend. 
