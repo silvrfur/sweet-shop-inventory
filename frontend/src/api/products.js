@@ -2,7 +2,7 @@ import { api } from "@/api/client";
 
 export async function getProducts() {
   const response = await api.get("/api/products");
-  return response.data.products;
+  return response.data;
 }
 
 export async function addProduct(productData) {
