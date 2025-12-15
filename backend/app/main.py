@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
-from flask import Flask, request
+from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
@@ -22,17 +22,18 @@ def create_app(testing=False):
 
     CORS(
         app,
-        resources={r"/api/*": {"origins": "*"}},
-        supports_credentials=True
+        resources={r"/api/*": {
+            "origins": [
+                "http://localhost:5173",
+                "https://sweet-shop-inventory.vercel.app"
+            ]
+        }},
+        supports_credentials=True,
+        expose_headers=["Authorization"]
     )
 
     JWTManager(app)
     init_db(app)
-
-    @app.before_request
-    def handle_options():
-        if request.method == "OPTIONS":
-            return "", 204
 
     @app.route("/health")
     def health():
